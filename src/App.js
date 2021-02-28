@@ -9,11 +9,11 @@ function findPalette(id) {
     return palette.id==id
   })
 }
-function App() {
+function App() {    
 
   return (
     <Switch>
-      <Route exact path="/" render={(routeProps)=><PaletteList palettes={seedColors}/>}/>
+      <Route exact path="/" render={(routeProps)=><PaletteList palettes={seedColors}{...routeProps}/>}/>
       <Route exact path="/palette/:id" render={(routeProps)=>{
       return <Palette paletteColors={generatePalette(findPalette(routeProps.match.params.id))}/>
     } 
