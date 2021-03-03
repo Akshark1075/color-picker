@@ -32,9 +32,9 @@ handleClose(){
     this.setState({open:false})     
 }
 render(){
-    const {paletteName,emoji}=this.props.paletteColors
+    const {paletteName,emoji,id}=this.props.paletteColors
     const colorBoxes=this.props.paletteColors.colors[this.state.level].map(bgcolor=>{
-       return <ColorBox backgroundColor={bgcolor[this.state.format]}name={bgcolor.name} key={bgcolor.id}/>
+       return <ColorBox backgroundColor={bgcolor[this.state.format]}name={bgcolor.name} key={bgcolor.id} moreUrl={`/palette/${id}/${bgcolor.id}`} showLink={true}/>
     }
        )
     return (<div className="Palette">
