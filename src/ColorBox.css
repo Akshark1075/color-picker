@@ -7,7 +7,19 @@
     display: inline-block;
     margin-bottom: -4px;
 }
-.copy-button{
+.SingleColorPalette .ColorBox{
+    height:50%;
+}
+.ColorBox.goBack{
+    background-color: black;
+}
+.ColorBox .dark-text{
+    color:rgba(0,0,0,0.5)
+}
+.light-text{
+    color:white;
+}
+.copy-button, .back-button{
     width:100px;
     height: 30px;
     text-align:center;
@@ -22,9 +34,12 @@
     line-height: 30px;
     background: rgb(255,255,255,0.3);
     color: white;
-    opacity: 0;
+   text-decoration: none;
     text-transform: uppercase;
     
+}
+.copy-button{
+    opacity: 0;
 }
 .ColorBox:hover .copy-button{
     opacity: 1;

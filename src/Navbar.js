@@ -20,12 +20,12 @@ render(){
     return(
         <nav className="Navbar">
             <div className="logo"><Link to="/">ColorPicker</Link></div>
-            <div className="SliderContainer">
+            {this.props.showingAllColors &&(<div className="SliderContainer">
                 <span>Level: {this.props.level}</span>
                 <div className="slider">
                  <Slider min={100} max={900} step={100} defaultValue={this.props.level} onAfterChange={this.props.handleChange}/>
                   </div>
-            </div>
+            </div>)}
             <div className="typeSelector">
                 <Select value={format} onChange={this.handleSelectionChange}>
                     <MenuItem value="hex"> HEX </MenuItem>

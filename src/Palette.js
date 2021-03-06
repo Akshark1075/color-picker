@@ -9,7 +9,7 @@ import Navbar from './Navbar';
 import "./Palette.css"
 
 
-
+import Footer from './Footer'
 class Palette extends Component{
     constructor(props){
         super(props);
@@ -38,7 +38,7 @@ render(){
     }
        )
     return (<div className="Palette">
-        <Navbar level={this.state.level} handleChange={this.handleChange}handleSelectionChange={this.handleSelectionChange} />
+        <Navbar level={this.state.level} handleChange={this.handleChange}handleSelectionChange={this.handleSelectionChange} showingAllColors={true}/>
         <div className="Palette-colors">
         {colorBoxes}
         </div>
@@ -61,10 +61,7 @@ render(){
   </IconButton>
   }
   />
-  <footer className="footer">
-{paletteName}
-<span className="emoji">{emoji}</span>
-  </footer>
+   <Footer emoji= {emoji} paletteName={paletteName}/>
     </div>)
 }
 }
