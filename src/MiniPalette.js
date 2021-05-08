@@ -16,7 +16,7 @@ const styles = {
     colors:{
         backgroundColor:"grey",
       width:"100%",
-      height:"150px",
+      height:"100px",
       borderRadius:"5px",
  
     },
