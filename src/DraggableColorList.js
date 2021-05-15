@@ -1,11 +1,11 @@
 import React from 'react'
 import DraggableColorBox from './DraggableColorBox'
-import {SortableContainer, SortableElement} from 'react-sortable-hoc';
-import arrayMove from 'array-move';
+import {SortableContainer} from 'react-sortable-hoc';
+
 function DraggableColorList(props){
    
-    return <div>
-        {props.colors.map((color)=>{return <DraggableColorBox key={color.name} name={color.name} backgroundColor={color.color} handleClick={()=>{props.removeColor(color.name)}}/>} )}
+    return <div style={{height:"100%", width:"100%"}}>
+        {props.colors.map((color,i)=>{return <DraggableColorBox key={color.name} name={color.name} index={i} backgroundColor={color.color} removeColor={props.removeColor}/>} )}
         </div>
     } 
-    export default DraggableColorList
+    export default SortableContainer(DraggableColorList)

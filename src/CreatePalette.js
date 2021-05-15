@@ -13,9 +13,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import { ChromePicker } from 'react-color';
-import DraggableColorBox from "./DraggableColorBox.js"
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import DraggableColorList from "./DraggableColorList"
+import arrayMove from 'array-move';
 const drawerWidth = 400;
 
 const useStyles = (theme) => ({
@@ -92,11 +92,9 @@ class CreatePalette extends Component{
     this.removeColor=this.removeColor.bind(this)
    
   }
-  // onSortEnd = (oldIndex, newIndex) => {
-  //   this.setState((curState) => ({
-  //     colors: arrayMove(curState.colors, oldIndex, newIndex),
-  //   }))
-  // }
+  onSortEnd = ({oldIndex, newIndex}) => {
+    this.setState((curState)=>{return {colors: arrayMove(curState.colors, oldIndex, newIndex)}})
+  }
 
     handleDrawerOpen = () => {
       this.setState({open:true})
@@ -112,7 +110,9 @@ class CreatePalette extends Component{
     
       this.setState(prevItems => {
         
-        return  {colors: [...prevItems.colors,{color:this.state.background,name:this.state.newColorName}]}}
+        return  {colors: [...prevItems.colors,{color:this.state.background,name:this.state.newColorName}],
+                newColorName:""
+                }}
       )}
      handleChange=(evt)=>{
     
@@ -123,9 +123,7 @@ class CreatePalette extends Component{
       this.setState({colors:[]})
     }
     removeColor(colorName){
-      this.setState((curState)=>{
-return {colors: curState.colors.filter(color=>color.name!==colorName)}
-      })
+      this.setState( {colors: this.state.colors.filter(color=>color.name!==colorName)})
     }
 
   //  handleRandom= (evt) => {
@@ -272,7 +270,7 @@ return {colors: curState.colors.filter(color=>color.name!==colorName)}
         >
           <div className={this.props.classes.drawerHeader} />
 
-          <DraggableColorList colors={this.state.colors} removeColor={this.removeColor}/>
+          <DraggableColorList colors={this.state.colors} removeColor={this.removeColor} axis='xy' onSortEnd={this.onSortEnd}/>
          
         </main>
       </div>
