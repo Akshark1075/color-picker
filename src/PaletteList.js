@@ -43,15 +43,21 @@ class PaletteList extends Component{
     constructor(props){
         super(props);
         this.handleClick=this.handleClick.bind(this)
+        this.handleDelete=this.handleDelete.bind(this)
     }
  handleClick(id){
 this.props.history.push(`palette/${id}`)
  }  
-    
+ handleDelete(evt,id){
+       
+     evt.stopPropagation()
+     this.props.deletePalette(id)
+
+ }
 render(){
  
     const {palettes, classes}=this.props
-    let allpalettes=palettes.map(x=><MiniPalette {...x} handleClick={()=>this.handleClick(x.id)} key={classes.id} />)
+    let allpalettes=palettes.map(x=><MiniPalette {...x} handleClick={()=>this.handleClick(x.id)} key={x.id} deletePalette={this.handleDelete} />)
     return(<div className={classes.root}>
         <div className={classes.container}>
         <nav className={classes.nav}><h1>React Colors</h1>

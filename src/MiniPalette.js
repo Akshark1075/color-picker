@@ -1,4 +1,5 @@
 import React from 'react'
+import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 const styles = {
     root: {
@@ -8,9 +9,10 @@ const styles = {
         overflow:"none",
         position:"relative",
         border: "2px solid black",
-        "&:hover":{
-            cursor:"pointer"
+        cursor:"pointer",
+        "&:hover svg":{
            
+           opacity:"1",
         }
     },
     colors:{
@@ -44,15 +46,37 @@ const styles = {
     emoji:{
         marginLeft:"0.5rem",
         fontSize:"1.5rem"
-    }
+    }, 
+    
+    deleteIcon:{
+        color:"white",
+        backgroundColor:"#eb3d30",
+        width:"20px",
+        height:"20px",
+        position:"absolute",
+        top:"0px",
+        right:"0px",
+        padding:"10px",
+        zIndex:"100",
+       opacity:"0",
+        
+            }
+    
 
 }
 
 function Minipalette (props){
-    const {classes, paletteName, emoji, colors}=props
+    const {classes, paletteName, emoji,id,colors}=props
 let paletteColors=colors.map(x=><div className={classes.color} style={{"backgroundColor":x.color}}key={x.name}></div>)
+function handleDelete(evt){
+props.deletePalette(evt,id)
+}
     return(<div className={classes.root} onClick={props.handleClick}>
-        <div className={classes.colors}>{paletteColors}</div>
+        
+        <DeleteIcon className={classes.deleteIcon} style={{transition:"all 0.5s ease-in-out"}} onClick={handleDelete}/>
+      
+       
+        <div className={classes.colors}>{paletteColors}</div> 
         <h5 className={classes.title}>{paletteName } <span className={classes.emoji}> {emoji} </span></h5>
     </div>)
 }
