@@ -69,6 +69,7 @@ function Minipalette (props){
     const {classes, paletteName, emoji,id,colors}=props
 let paletteColors=colors.map(x=><div className={classes.color} style={{"backgroundColor":x.color}}key={x.name}></div>)
 function handleDelete(evt){
+
 props.deletePalette(evt,id)
 }
     return(<div className={classes.root} onClick={props.handleClick}>

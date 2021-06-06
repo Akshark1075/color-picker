@@ -5,6 +5,7 @@
 }
 .Palette-colors{
     height: 90%;
+    overflow: hidden;
 }
 .footer{
     height: 5vh;

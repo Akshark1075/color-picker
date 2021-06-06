@@ -19,9 +19,9 @@ render(){
     const {format} = this.state
     return(
         <nav className="Navbar">
-            <div className="logo"><Link to="/">ColorPicker</Link></div>
+            <div className="logo"><Link to="/">Shades</Link></div>
             {this.props.showingAllColors &&(<div className="SliderContainer">
-                <span>Level: {this.props.level}</span>
+                <span className="level">Level: {this.props.level}</span>
                 <div className="slider">
                  <Slider min={100} max={900} step={100} defaultValue={this.props.level} onAfterChange={this.props.handleChange}/>
                   </div>

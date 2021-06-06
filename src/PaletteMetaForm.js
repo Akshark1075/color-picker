@@ -60,7 +60,7 @@ const {open, emojiPickerOpen}=this.state
   return (
     <div>
         
-        <Button variant="contained"  color="primary" onClick={this.handleClickOpen}>Save Palette</Button>
+        <Button variant="contained"  color="primary" onClick={this.handleClickOpen}>Save</Button>
         <Dialog open={emojiPickerOpen} title="Pick an emoji"onClose={this.closeEmojiPicker}>
         <DialogTitle id="form-dialog-title">Choose a palette emoji</DialogTitle>
         <Picker onSelect={this.savePalette} />
@@ -89,7 +89,7 @@ const {open, emojiPickerOpen}=this.state
             Cancel
           </Button>
           
-          <Button variant="contained"  color="primary" type="submit">Save Palette</Button>
+          <Button variant="contained"  color="primary" type="submit">Save</Button>
         
         </DialogActions>
         </ValidatorForm> 

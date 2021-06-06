@@ -5,7 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
+
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -30,6 +30,7 @@ const useStyles = (theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     
+    
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -39,8 +40,21 @@ const useStyles = (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  toolbar:{
+
+    "@media(max-width:576px)":{
+      paddingRight:"2px",
+      },
+      "@media(max-width:725px)":{
+        paddingLeft:"5px",
+        paddingRight:"5px",
+        }, 
+  },
   menuButton: {
     marginRight: theme.spacing(2),
+    "@media(max-width:576px)":{
+      marginRight:"0px",
+      },
   },
   hide: {
     display: 'none',
@@ -51,6 +65,9 @@ const useStyles = (theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    "@media(max-width:700px)":{
+     width:"100%"
+      },
     
   },
   drawerHeader: {
@@ -84,6 +101,8 @@ const useStyles = (theme) => ({
        flexDirection:"row",
     justifyContent:"space-between",
     width:"100%"
+      
+    
   },
   container:{
     display:'flex',
@@ -107,8 +126,16 @@ const useStyles = (theme) => ({
 
   },
   btnDiv:{
-    display:"flex"
-  }
+    display:"flex",
+    
+  },
+  
+
+
+
+
+
+
 })
 
 class CreatePalette extends Component{
@@ -145,12 +172,18 @@ class CreatePalette extends Component{
       this.setState({background:color.hex})
     };
     handleAddColor= (evt) => {
+   
     
       this.setState(prevItems => {
         
         return  {colors: [...prevItems.colors,{color:this.state.background,name:this.state.newColorName}],
                 newColorName:""
-                }}
+                }              
+
+
+                          
+
+                }
       )}
       handleChange=(evt)=>{
     
@@ -166,10 +199,20 @@ class CreatePalette extends Component{
 
    handleRandom= (evt) => {
     
-     if(!this.state.colors.length >=this.props.maxColors){
-     let allColors=this.props.palettes.map(palette=>palette.colors).flat()
-     let randomNumber=Math.floor(Math.random()*allColors.length)
-    let randColor=allColors[randomNumber]
+     if(this.state.colors.length <this.props.maxColors){
+       var isDuplicate=true
+       let allColors=this.props.palettes.map(palette=>palette.colors).flat()
+       let randomNumber;
+       let randColor;
+       console.log(isDuplicate)
+      while(isDuplicate){
+       randomNumber=Math.floor(Math.random()*allColors.length)
+       randColor=allColors[randomNumber]
+     
+  isDuplicate=this.state.colors.some(color=>color.name==randColor.name)
+ 
+      }
+
    
       this.setState(prevItems => {
         return  {colors: [...prevItems.colors,randColor]}
@@ -192,10 +235,14 @@ class CreatePalette extends Component{
        
       })
         ValidatorForm.addValidationRule('isColorUnique', (value) => {
-     
-          return this.state.colors.every((color)=>{
-             return color.color != this.state.background 
-           });
+          var isUnique=! this.state.colors.some((color)=>{
+         
+            return color.color === this.state.background 
+          })
+          
+          return isUnique
+         
+          
         
     });
  
@@ -230,7 +277,7 @@ class CreatePalette extends Component{
           })}
           color="default"
         >
-          <Toolbar>
+          <Toolbar className={this.props.classes.toolbar}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -247,7 +294,7 @@ class CreatePalette extends Component{
             <div className={this.props.classes.btnDiv}>
         
           <PaletteMetaForm palettes={this.props.palettes} handleSubmit={this.handleSubmit}/>
-          <Button variant="contained" color="secondary" onClick={()=>{this.props.history.goBack()}}>Go back</Button>
+          <Button variant="contained" color="secondary" onClick={()=>{this.props.history.goBack()}}>Back</Button>
             </div>
             </div>
           </Toolbar>
@@ -274,14 +321,15 @@ class CreatePalette extends Component{
         <Button variant="contained" color="secondary"onClick={this.handleClear}>Clear Palette</Button>
         <Button variant="contained" color="primary" onClick={this.handleRandom}>Random Color</Button>
         </div>
+        
          <ChromePicker color={ this.state.background }
         onChangeComplete={ this.handleChangeComplete } className={this.props.classes.picker}/>
 <ValidatorForm
                
-                onSubmit={this.handleAddColor}
-                onError={errors => console.log(errors)}
-                style={{width:"80%"}}
-            >
+               onSubmit={this.handleAddColor}
+               onError={errors => console.log(errors)}
+               style={{width:"80%"}}
+           >
                 <TextValidator
                     label="Color name"
                     onChange={this.handleChange}
@@ -308,7 +356,7 @@ class CreatePalette extends Component{
         >
           <div className={this.props.classes.drawerHeader} />
 
-          <DraggableColorList colors={this.state.colors} removeColor={this.removeColor} axis='xy' onSortEnd={this.onSortEnd}/>
+          <DraggableColorList colors={this.state.colors} removeColor={this.removeColor} axis='xy' distance={20} onSortEnd={this.onSortEnd}/>
          
         </main>
       </div>

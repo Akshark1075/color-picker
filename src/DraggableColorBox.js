@@ -10,11 +10,28 @@ const styles={
         cursor: "pointer",
         position: "relative",
         display: "inlineBlock",
-        marginBottom: "-4px",
+        marginBottom: "-5px",
         "&:hover svg":{
             color:"white",
             transform:"scale(1.5)"
+        },
+        "@media(max-width:576px)":{
+        width:"100%",
+        height:"5%",
+        },
+        "@media(min-width:576px)":{
+            width:"50%",
+            height:"10%",
+        },
+        "@media(min-width:768px)":{
+            width:"25%",
+            height:"20%",
+        },
+        "@media(min-width:992px)":{
+            width:"20%",
+            height:"25%", 
         }
+        
     },
     boxContent:{
         bottom:"0px",
@@ -28,7 +45,10 @@ const styles={
         width:"100%",
         display:"flex",  
         justifyContent:"space-between",
-        alignItems:"baseline"
+        alignItems:"baseline",
+        "@media(max-width:576px)":{
+            padding:"5px",
+            },
     },
     deleteIcon:{
         color:"rgb(0,0,0,0.5)",
